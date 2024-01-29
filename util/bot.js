@@ -310,3 +310,10 @@ export default async (debug = false, config, settings, is_replit = (process.env.
   });
 
 }
+client.on('messageCreate', async function (msg) {
+    if (msg.content === 'Q!PING') {
+      if (msg.member.permissions.has(PERMISSION)) {
+      message.reply({ content: `:ping_pong: PING ${client.ws.ping} ms` })
+    } 
+  } 
+});
