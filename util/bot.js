@@ -111,6 +111,11 @@ export default async (debug = false, config, settings, is_replit = (process.env.
             embeds: [{ color: 0x40ff36, title: `✅ تم إيقاف تشغيل الراديو بنجاح. آمل ألا يكون ذلك بسبب عدم رغبتك في الاستماع إلى الراديو` }]
           })
         }
+                if (interaction.data.name === "ping") {
+          await interaction.createMessage({
+            embeds: [{ color: 0x40ff36, title: `:ping_pong: ping ${client.ws.ping} ms` }]
+          })
+        }
         if (interaction.data.name === "radio" && interaction.data.options.getSubCommand() == "start") {
           if (await settings.has("guild_id") && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
             embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
