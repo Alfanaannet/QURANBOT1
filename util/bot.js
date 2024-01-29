@@ -98,7 +98,7 @@ export default async (debug = false, config, settings, is_replit = (process.env.
       description: "قياس سرعه الاتصال",
        dmPermission: false,
       defaultMemberPermissions: 8
-    }]);
+    }];
   });
 
   client.on("error", console.log);
