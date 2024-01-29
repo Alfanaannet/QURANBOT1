@@ -2,11 +2,11 @@ status_bot: إذاعه القرآن الكريم علي مدار 24 ساعه
 status_type: 3
 debug: 0
 radio:
-  guild_id: "1194164547175596052"
-  channel: https://Qurango.net/radio/ahmed_altrabulsi
+  guild_id: "1155991544483037357"
+  channel: http://n02.radiojar.com/v33ay8543d0uv?rj-ttl=5&rj-tok=AAABgDTqH90AIyBNaL5t4qE1IA
   voice:
     createdAt: 1704781414551
-    id: "1194164547175596058"
+    id: "1194201897893109770"
     type: 2
   at: 1706489097671
   by: "775012312876711936"
