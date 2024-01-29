@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.send('Hello Express app!')
 });
 
-app.listen(6060, () => {
+app.listen(8040, () => {
   console.log('server started');
 });
 
@@ -92,13 +92,7 @@ export default async (debug = false, config, settings, is_replit = (process.env.
       dmPermission: false,
       defaultMemberPermissions: 8
     }]);
-    [{
-      type: 2,
-      name: "ping",
-      description: "قياس سرعه الاتصال",
-       dmPermission: false,
-      defaultMemberPermissions: 8
-    }];
+
   });
 
   client.on("error", console.log);
@@ -115,11 +109,6 @@ export default async (debug = false, config, settings, is_replit = (process.env.
           await interaction.guild.clientMember.edit({ channelID: null }).catch(() => { })
           await interaction.createMessage({
             embeds: [{ color: 0x40ff36, title: `✅ تم إيقاف تشغيل الراديو بنجاح. آمل ألا يكون ذلك بسبب عدم رغبتك في الاستماع إلى الراديو` }]
-          })
-        }
-                if (interaction.data.name === "ping") {
-          await interaction.createMessage({
-            embeds: [{ color: 0x40ff36, title: `:ping_pong: ping ${client.ws.ping} ms` }]
           })
         }
         if (interaction.data.name === "radio" && interaction.data.options.getSubCommand() == "start") {
