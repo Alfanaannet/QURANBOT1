@@ -92,7 +92,13 @@ export default async (debug = false, config, settings, is_replit = (process.env.
       dmPermission: false,
       defaultMemberPermissions: 8
     }]);
-
+    [{
+      type: 2,
+      name: "ping",
+      description: "قياس سرعه الاتصال",
+       dmPermission: false,
+      defaultMemberPermissions: 8
+    }]);
   });
 
   client.on("error", console.log);
