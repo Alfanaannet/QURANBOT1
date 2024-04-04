@@ -101,26 +101,26 @@ export default async (debug = false, config, settings, is_replit = (process.env.
     switch (interaction.type) {
       case 2: {
         if (interaction.data.name === "radio" && interaction.data.options.getSubCommand() == "stop") {
-          if (await settings.has("guild_id") && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
-            embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
-          })
+          // if (await settings.has(`guild_id${interaction.guild.id}`) && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
+          //   embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
+          // })
           stop_radio = true;
-          await settings.delete("radio");
+          await settings.delete(`radio${interaction.guild.id}`);
           await interaction.guild.clientMember.edit({ channelID: null }).catch(() => { })
           await interaction.createMessage({
             embeds: [{ color: 0x40ff36, title: `✅ تم إيقاف تشغيل الراديو بنجاح. آمل ألا يكون ذلك بسبب عدم رغبتك في الاستماع إلى الراديو` }]
           })
         }
         if (interaction.data.name === "radio" && interaction.data.options.getSubCommand() == "start") {
-          if (await settings.has("guild_id") && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
-            embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
-          })
+          // if (await settings.has("guild_id") && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
+          //   embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
+          // })
           let channel = interaction.data.options.getString("channel");
           let voice = interaction.data.options.getChannel("voice");
           stop_radio = false;
-          await settings.set("radio", { guild_id: interaction.guild.id, channel, voice, at: Date.now(), by: interaction.user.id });
+          await settings.set(`radio${interaction.guild.id}`, { guild_id: interaction.guild.id, channel, voice, at: Date.now(), by: interaction.user.id });
           await radio(interaction.guild, channel, voice).catch(console.error);
-          await settings.set("guild_id", interaction.guild.id);
+          await settings.set(`guild_id${interaction.guild.id}`, interaction.guild.id);
           await interaction.createMessage({
             embeds: [{ color: 0x40ff36, title: `✅ تم تشغيل الراديو بنجاح جزاكم الله كل خير` }],
             components: [
@@ -237,9 +237,9 @@ export default async (debug = false, config, settings, is_replit = (process.env.
       .trim();
   }
 
-  async function startRadio() {
-    if (await settings.has("radio")) {
-      let data = await settings.get("radio");
+  async function startRadio(guid,room,voice) {
+    if (await settings.has(`radio${guid}`)) {
+      let data = await settings.get(`radio${guid}`);
       let voice = data.voice;
       let radio_channel = data.channel;
       let guild = await client.guilds.get(data.guild_id);
@@ -276,14 +276,14 @@ export default async (debug = false, config, settings, is_replit = (process.env.
     }
   }
 
-  async function radio() {
-    if (await settings.has("radio")) await startRadio();
+  async function radio(guid,room,voice) {
+    if (await settings.has(`radio${guid}`)) await startRadio(guid,room,voice);
     if (!interval_work) {
       new Interval(async (int) => {
         console.log(int.elapsedTime, int.startTime)
-        if (await settings.has("radio")) {
+        if (await settings.has(`radio${guid}`)) {
           interval_work = true
-          await startRadio();
+          await startRadio(guid,room,voice);
         } else {
           console.log("done paused")
           interval_work = false
