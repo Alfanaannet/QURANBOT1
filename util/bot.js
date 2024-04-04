@@ -137,7 +137,7 @@ export default async (debug = false, config, settings, is_replit = (process.env.
                   {
                     type: 2,
                     label: "لديك مشاكل أو أسئلة ، تواصل مع الدعم الفني",
-                    url: "https://discord.gg/its-community-917580196251594815",
+                    url: "https://discord.gg/awrp",
                     style: 5,
                   }
                 ]
