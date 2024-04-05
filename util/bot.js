@@ -48,13 +48,11 @@ export default async (
     gateway: { intents: ["GUILDS", "GUILD_VOICE_STATES"] },
   });
   let ready_first;
-  //const spinner = createSpinner('Run a project made by Shuruhatik', { interval: 50 }).start({ "color": "blue" })
-  // bot.login(process.env.token)
   var spinner;
   client.connect();
 
   client.on("ready", async () => {
-    console.log(clien.user.tag);
+    console.log("ready");
     if (!ready_first) {
       ready_first = true;
       setInterval(async () => {
@@ -75,10 +73,6 @@ export default async (
         );
       })
       .catch(() => {});
-
-    // if (await settings.has("radio")) {
-    //   await radio().catch(console.error);
-    // }
     await client.application.bulkEditGlobalCommands([
       {
         type: 1,
@@ -118,14 +112,6 @@ export default async (
       },
     ]);
   });
-
-  // client.on("error", console.log);
-  // client.on(
-  //   "debug",
-  //   debug
-  //     ? (message) => console.log("\n\u001b[32m[DEBUG] " + message + "\u001b[0m")
-  //     : () => {},
-  // );
   client.on("interactionCreate", async (interaction) => {
     switch (interaction.type) {
       case 2: {
@@ -133,9 +119,6 @@ export default async (
           interaction.data.name === "radio" &&
           interaction.data.options.getSubCommand() == "stop"
         ) {
-          // if (await settings.has(`guild_id${interaction.guild.id}`) && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
-          //   embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
-          // })
           stop_radio = true;
           await settings.delete(`radio${interaction.guild.id}`);
           await interaction.guild.clientMember
@@ -144,8 +127,8 @@ export default async (
           await interaction.createMessage({
             embeds: [
               {
-                color: 0x40ff36,
-                title: `✅ تم إيقاف تشغيل الراديو بنجاح. آمل ألا يكون ذلك بسبب عدم رغبتك في الاستماع إلى الراديو`,
+                color: 0x000000,
+                title: ` تم إيقاف تشغيل الراديو بنجاح. آمل ألا يكون ذلك بسبب عدم رغبتك في الاستماع إلى الراديو \`✅\``,
               },
             ],
           });
@@ -154,9 +137,6 @@ export default async (
           interaction.data.name === "radio" &&
           interaction.data.options.getSubCommand() == "start"
         ) {
-          // if (await settings.has("guild_id") && await settings.get("guild_id") != interaction.guild.id) return await interaction.createMessage({
-          //   embeds: [{ color: 0xff3434, title: `:x: فقط سيرفر ذات معرف هذا ${await settings.get("guild_id")} يمكنه استخدام البوت هو فقط` }], flags: 64
-          // })
           let channel = interaction.data.options.getString("channel");
           let voice = interaction.data.options.getChannel("voice");
           stop_radio = false;
@@ -168,12 +148,11 @@ export default async (
             by: interaction.user.id,
           });
           await radio(interaction.guild, channel, voice).catch();
-          // await settings.set(`guild_id${interaction.guild.id}`, interaction.guild.id);
           await interaction.createMessage({
             embeds: [
               {
-                color: 0x40ff36,
-                title: `✅ تم تشغيل الراديو بنجاح جزاكم الله كل خير`,
+                color: 0x000000,
+                title: ` تم تشغيل الراديو بنجاح جزاكم الله كل خير \`✅\``,
               },
             ],
             components: [
@@ -262,16 +241,12 @@ export default async (
         const player = createAudioPlayer();
         voiceConnection.subscribe(player);
 
-        // player.on(AudioPlayerStatus.Playing, () => {
-        //   console.log(
-        //     "\n\u001b[32;1m▣\u001b[0m\u001b[0m\u001b[1m Started playing",
-        //   );
-        // });
-        // player.on(AudioPlayerStatus.Idle, () => {
-        //   console.log(
-        //     "\n\u001b[32;1m▣\u001b[0m\u001b[0m\u001b[1m The player is not playing any audio",
-        //   );
-        // });
+        player.on(AudioPlayerStatus.Playing, () => {
+          console.log("Started playing");
+        });
+        player.on(AudioPlayerStatus.Idle, () => {
+          console.log("The player is not playing any audio");
+        });
         if (stop_radio) {
           await player.stop();
         } else {
