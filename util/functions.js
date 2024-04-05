@@ -27,13 +27,13 @@ async function runAction(auto_run) {
     //   ],
     // });
 
-    if (action == 0) {
-      await settings.set("debug", action);
-      return await startBot(false, config, settings);
-    } else if (action == 1) {
-      await settings.set("debug", action);
-      return await startBot(true, config, settings);
-    }
+    // if (action == 0) {
+    //   await settings.set("debug", action);
+    //   return await startBot(false, config, settings);
+    // } else if (action == 1) {
+    //   await settings.set("debug", action);
+    //   return await startBot(true, config, settings);
+    // }
   // } else {
     // console.log(`\nDeveloped By \u001b[32;1mShuruhatik#2443\u001b[0m `)
     // await config.delete(`token`);
