@@ -34,7 +34,7 @@ async function runAction(auto_run) {
       await settings.set("debug", action);
       return await startBot(true, config, settings);
     }
-  } else {
+  // } else {
     // console.log(`\nDeveloped By \u001b[32;1mShuruhatik#2443\u001b[0m `)
     // await config.delete(`token`);
     // await config.set(`token`, "jhhkkkkkkkkkk");
@@ -42,7 +42,7 @@ async function runAction(auto_run) {
     // await settings.set("status_type", 3);
     // await settings.set("reset", "احذف هذا السطر إذا كنت تريد تحط توكن جديد");
     return await runAction(false, settings);
-  }
+  // }
 }
 
 function sendDM(member, content, file) {
