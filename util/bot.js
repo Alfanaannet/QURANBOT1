@@ -30,10 +30,7 @@ app.listen(9090, () => {
   console.log("server started");
 });
 
-export default async (
-  debug = false,
-  settings
-) => {
+export default async (debug,settings) => {
   let interval_work = false;
   let stop_radio = false;
   const isInteger = (num) => /^-?[0-9]+$/.test(num + "");
