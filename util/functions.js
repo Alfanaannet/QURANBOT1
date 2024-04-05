@@ -8,7 +8,7 @@ const is_replit =
 const shuruhatik = `█▀ █░█ █░█ █▀█ █░█ █░█ ▄▀█ ▀█▀ █ █▄▀\n▄█ █▀█ █▄█ █▀▄ █▄█ █▀█ █▀█ ░█░ █ █░█`;
 const settings = new Database("./config.yml");
 
-async function runAction(auto_run) {
+async function runAction() {
     return await runAction(false, settings);
 }
 
