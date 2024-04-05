@@ -32,11 +32,7 @@ app.listen(9090, () => {
 
 export default async (
   debug = false,
-  config,
-  settings,
-  is_replit = process.env.REPL_ID &&
-    process.env.REPL_SLUG &&
-    process.env.REPL_OWNER,
+  settings
 ) => {
   let interval_work = false;
   let stop_radio = false;
